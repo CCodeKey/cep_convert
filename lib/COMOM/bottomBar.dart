@@ -15,7 +15,7 @@ class Custom_BottomBarState extends State<CustomBottomBar> {
   Widget build(BuildContext context) {
     return Container(
       height: 90,
-      margin: EdgeInsets.only(bottom: 20, top: 50),
+      margin: EdgeInsets.only(bottom: 20),
       padding: EdgeInsets.only(left: 15, right: 15),
       child: Card(
         color: Cores.cor2,
