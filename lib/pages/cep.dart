@@ -15,11 +15,11 @@ class CepPage extends StatefulWidget {
 }
 
 class _CepPageState extends State<CepPage> {
-  Map? dadosViewCepUser;
   TextEditingController _cepController = TextEditingController();
-  String _paizValueCep = "";
+  String _regiaoValueCep = "";
   String _cidadeValueCep = "";
-  String _ruaValueCep = "";
+  String _estadoValueCep = "";
+  bool btnController = false;
 
   @override
   Widget build(BuildContext context) {
@@ -51,21 +51,25 @@ class _CepPageState extends State<CepPage> {
                     ),
 
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 60, top: 12),
-                      child: TextField(
+                      padding: const EdgeInsets.only(left: 90, top: 38),
+                      
+                      child: 
+                      TextField(
                         controller: _cepController,
                         keyboardType: TextInputType.numberWithOptions(),
                         maxLength: 8,
                         maxLengthEnforcement: MaxLengthEnforcement.enforced,
                         
+                        // padding: const EdgeInsets.only(left: 60, top: 12),
                         
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: "digite seu cep",
+                          hintText: "   seu cep",
+                          // hintText: "digite seu cep",
                           hintStyle: TextStyle(
                             fontFamily: "inter",
                             color: Cores.cor3,
-                            fontSize: 22,
+                            fontSize: 28,
                       
                           )
                         ),
@@ -77,15 +81,24 @@ class _CepPageState extends State<CepPage> {
                               
                             ), 
                       
-                        showCursor: false,
-                        
+                        onChanged: (value) {
+                          if(_cepController.toString().length == 209){
+                            setState(() {
+                              btnController = true;
+                            });
+                          } else {
+                            setState(() {
+                              btnController = false;
+                            });
+                          }
+                        },
                         ),
+                        
                     ),),
                   )
               ],
             ),
           ),
-
 
           Container(
             margin: EdgeInsets.only(top: 40),
@@ -95,7 +108,7 @@ class _CepPageState extends State<CepPage> {
             height: 30,
             width: 500,
             margin: EdgeInsets.only(left: 30),
-            child: Text("PAÍS", style: TextStyle(
+            child: Text("ESTADO", style: TextStyle(
               color: Cores.cor3,
               fontFamily: "inter",
               fontSize: 20
@@ -115,7 +128,43 @@ class _CepPageState extends State<CepPage> {
               ),
 
               child: Center(
-                child: Text(_paizValueCep, style: TextStyle(
+                child: Text(_estadoValueCep, style: TextStyle(
+                  color: Cores.cor5,
+                  fontFamily: "inter",
+                  fontSize: 20,
+                ),),
+              )
+              
+            ),
+            ),
+
+          Padding(padding:EdgeInsets.only(bottom: 30) , child:Container()),
+
+          Container(
+            height: 30,
+            width: 500,
+            margin: EdgeInsets.only(left: 30),
+            child: Text("REGIÃO", style: TextStyle(
+              color: Cores.cor3,
+              fontFamily: "inter",
+              fontSize: 20
+            ),),
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 30, right: 30),
+            height: 80,
+            width: 500,
+            child: Card(
+              color: Cores.cor2,
+              shape: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                borderSide: BorderSide(
+                  color: Cores.cor3
+                )
+              ),
+
+              child: Center(
+                child: Text(_regiaoValueCep, style: TextStyle(
                   color: Cores.cor5,
                   fontFamily: "inter",
                   fontSize: 20,
@@ -161,51 +210,16 @@ class _CepPageState extends State<CepPage> {
             ),
             ),
 
-          Padding(padding:EdgeInsets.only(bottom: 30) , child:Container()),
-
-          Container(
-            height: 30,
-            width: 500,
-            margin: EdgeInsets.only(left: 30),
-            child: Text("RUA", style: TextStyle(
-              color: Cores.cor3,
-              fontFamily: "inter",
-              fontSize: 20
-            ),),
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 30, right: 30),
-            height: 80,
-            width: 500,
-            child: Card(
-              color: Cores.cor2,
-              shape: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                borderSide: BorderSide(
-                  color: Cores.cor3
-                )
-              ),
-
-              child: Center(
-                child: Text(_ruaValueCep, style: TextStyle(
-                  color: Cores.cor5,
-                  fontFamily: "inter",
-                  fontSize: 20,
-                ),),
-              )
-              
-            ),
-            ),
-
           Container(
             height: 52,
             width: 254,
             margin: EdgeInsets.only(top: 80),
-            child: ElevatedButton(onPressed: (){
-              setState(() {
-                validacao(_cepController.text);
-              });
-            }, child: Text("buscar", style: TextStyle(
+            child: ElevatedButton(
+              onPressed: btnController ? (){
+                setState(() {
+                  validacao(_cepController.text);
+                });
+            } : null, child: Text("buscar", style: TextStyle(
               color: Cores.cor5,
               fontSize: 20,
             ),), 
@@ -234,7 +248,7 @@ class _CepPageState extends State<CepPage> {
               children: [
               Padding(
                 padding: const EdgeInsets.only(right: 10),
-                child: Text("Insira um valor para um cep válido",style: TextStyle(color: Cores.cor4, fontSize: 18)),
+                child: Text("Insira um valor válido para um cep",style: TextStyle(color: Cores.cor4, fontSize: 18)),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 170, top: 20),
@@ -253,10 +267,11 @@ class _CepPageState extends State<CepPage> {
   }
   
   void validacao(String cep){
-  if (cep.isEmpty){
+  try{
+    int newCep = int.parse(cep);
+    buscarCep(newCep);
+  } catch (e){
     show(context);
-  } else{
-    buscarCep(cep);
   }
 }
   
@@ -266,15 +281,23 @@ class _CepPageState extends State<CepPage> {
     final response = await http.get(url); 
     if(response.statusCode == 200){
       dados = jsonDecode(response.body);
-      dadosDoCep(dados);
+      if (dados.keys.toString() == "(erro)"){
+        show(context);
+      } else {
+        setantoDadosRecebidos(dados);
+      }
     } else {
-     print("cep inválido");
+      show(context);
     }
     return response;  
   }
 
-  void dadosDoCep(Map dados){
-    dadosViewCepUser = dados;
+  void setantoDadosRecebidos(Map dados){  
+    setState(() {
+      _estadoValueCep = dados["estado"];
+      _regiaoValueCep = dados["regiao"];
+      _cidadeValueCep = dados["localidade"];
+    });
   }
 
 }
