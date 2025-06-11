@@ -51,8 +51,8 @@ flutter pub get
 flutter run
 ```
 
-📸 Screenshots
-## Tela CEP
+## 📸 Screenshots
+### Telas CEP - Convert
 
 ![Exemplo de interface_tela_do_cep](img.png)  
 
