@@ -3,7 +3,7 @@
 ![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
 ![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
 
-Aplicativo Flutter com duas funcionalidades úteis: consulta de CEP e conversão de moedas.
+MultiApp é um aplicativo desenvolvido em Flutter que combina duas ferramentas essenciais: consulta de CEP integrada com a API ViaCEP e um conversor de moedas para cálculos financeiros.
 
 ## Funcionalidades
 
@@ -52,7 +52,8 @@ flutter run
 ```
 
 📸 Screenshots
-Tela CEP
+## Tela CEP
+
 ![Exemplo de interface_tela_do_cep](img.png)  
 
 📝 Estrutura do Código
@@ -61,8 +62,10 @@ lib/
 ├── COMOM/
 │   ├── bottomBar.dart    # Barra de navegação
 │   └── cores.dart        # Paleta de cores
-├── cep.dart              # Tela de consulta CEP
-└── convert.dart          # Tela de conversão
+├── pages/
+│   ├── cep.dart              # Tela de consulta CEP
+|   └── convert.dart          # Tela de conversão
+└── app.dart          # código principal
 ```
 
 🤝 Contribuição
