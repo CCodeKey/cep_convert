@@ -5,7 +5,7 @@
 
 Aplicativo Flutter com duas funcionalidades úteis: consulta de CEP e conversão de moedas.
 
-## ✨ Funcionalidades
+## Funcionalidades
 
 ### 🔍 Consulta de CEP
 - Integração com API ViaCEP
@@ -30,42 +30,40 @@ Aplicativo Flutter com duas funcionalidades úteis: consulta de CEP e conversão
   - `flutter/services` para input
   - `material` para UI
 
-## 🚀 Como Executar
+## Como Executar
 
 1. Clone o repositório:
 ```bash
 git clone https://github.com/seu-usuario/multiapp.git
 ```
 2. Acesse o diretório:
-
-bash
-
+```bash
 cd multiapp
+```
 
-    Instale as dependências:
-
-bash
-
+3. Instale as dependências:
+```bash
 flutter pub get
+```
 
-    Execute o app:
-
-bash
-
+4. Execute o app:
+```bash
 flutter run
+```
 
 📸 Screenshots
-Tela CEP	Tela Conversor
-https://screenshots/cep.png	https://screenshots/convert.png
-📝 Estrutura do Código
-text
+Tela CEP
+![Exemplo de interface_tela_do_cep](img.png)  
 
+📝 Estrutura do Código
+```text
 lib/
 ├── COMOM/
 │   ├── bottomBar.dart    # Barra de navegação
 │   └── cores.dart        # Paleta de cores
 ├── cep.dart              # Tela de consulta CEP
 └── convert.dart          # Tela de conversão
+```
 
 🤝 Contribuição
 
